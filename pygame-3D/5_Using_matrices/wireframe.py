@@ -14,16 +14,14 @@ class Wireframe:
         self.edges += edgeList
 
     def outputNodes(self):
-        for i in range(self.nodes.shape[1]):
-            (x, y, z, _) = self.nodes[:, i]
-            print "Node %d: (%.3f, %.3f, %.3f)" % (i, x, y, z)
-            
+        print "\n --- Nodes --- "
+        for i, (x, y, z, _) in enumerate(self.nodes):
+            print "   %d: (%d, %d, %d)" % (i, x, y, z)
+
     def outputEdges(self):
-        for i, (start, stop) in enumerate(self.edges):
-            node1 = self.nodes[:, start]
-            node2 = self.nodes[:, stop]
-            print "Edge %d: (%.3f, %.3f, %.3f)" % (i, node1[0], node1[1], node1[2]),
-            print "to (%.3f, %.3f, %.3f)" % (node2[0], node2[1], node2[2])
+        print "\n --- Edges --- "
+        for i, (node1, node2) in enumerate(self.edges):
+            print "   %d: %d -> %d" % (i, node1, node2)
 
     def findCentre(self):
         num_nodes = len(self.nodes)
