@@ -65,7 +65,11 @@ class ProjectionViewer:
             if self.displayNodes:
                 for node in wireframe.nodes:
                     pygame.draw.circle(self.screen, self.nodeColour, (int(node.x), int(node.y)), self.nodeRadius, 0)
-
+            
+            """ Add wireframe center and line to center of visual space """
+            pygame.draw.circle(self.screen, self.nodeColour, (int(wireframe.findCentre()[0]), int(wireframe.findCentre()[1])), 2, 0)
+            pygame.draw.aaline(self.screen, self.edgeColour, (int(wireframe.findCentre()[0]), int(wireframe.findCentre()[1])), (self.width/2, self.height/2), 1)
+            
     def translateAll(self, axis, d):
         """ Translate all wireframes along a given axis by d units. """
 
