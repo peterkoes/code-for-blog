@@ -87,15 +87,21 @@ class ProjectionViewer:
         rotateFunction = 'rotate' + axis
 
         for wireframe in self.wireframes.itervalues():
-            centre = wireframe.findCentre()
+#            centre = wireframe.findCentre()
+            centre = (self.width/2, self.height/2, self.width/2)
             getattr(wireframe, rotateFunction)(centre, theta)
 
 if __name__ == '__main__':
-    pv = ProjectionViewer(400, 300)
+    pv = ProjectionViewer(1200, 900)
 
-    cube = wireframe.Wireframe()
-    cube.addNodes([(x,y,z) for x in (50,250) for y in (50,250) for z in (50,250)])
-    cube.addEdges([(n,n+4) for n in range(0,4)]+[(n,n+1) for n in range(0,8,2)]+[(n,n+2) for n in (0,1,4,5)])
+    cube_a = wireframe.Wireframe()
+    cube_a.addNodes([(x,y,z) for x in (50,250) for y in (50,250) for z in (50,250)])
+    cube_a.addEdges([(n,n+4) for n in range(0,4)]+[(n,n+1) for n in range(0,8,2)]+[(n,n+2) for n in (0,1,4,5)])
+    pv.addWireframe('cube_a', cube_a)
     
-    pv.addWireframe('cube', cube)
+    cube_b = wireframe.Wireframe()
+    cube_b.addNodes([(x,y,z) for x in (100,200) for y in (100,200) for z in (300,400)])
+    cube_b.addEdges([(n,n+4) for n in range(0,4)]+[(n,n+1) for n in range(0,8,2)]+[(n,n+2) for n in (0,1,4,5)])
+    pv.addWireframe('cube_b', cube_b)
+
     pv.run()
