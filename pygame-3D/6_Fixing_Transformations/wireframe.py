@@ -25,18 +25,20 @@ def rotateXMatrix(radians):
                      [0, c,-s, 0],
                      [0, s, c, 0],
                      [0, 0, 0, 1]])
+
 def rotateYMatrix(radians):
     """ Return matrix for rotating about the y-axis by 'radians' radians """
-    
+
     c = np.cos(radians)
     s = np.sin(radians)
     return np.array([[ c, 0, s, 0],
                      [ 0, 1, 0, 0],
                      [-s, 0, c, 0],
                      [ 0, 0, 0, 1]])
+
 def rotateZMatrix(radians):
     """ Return matrix for rotating about the z-axis by 'radians' radians """
-    
+
     c = np.cos(radians)
     s = np.sin(radians)
     return np.array([[c,-s, 0, 0],
@@ -56,6 +58,16 @@ class Wireframe:
 
     def addEdges(self, edgeList):
         self.edges += edgeList
+
+    def findCentre(self):
+        """ Find the centre of the wireframe. """
+
+        num_nodes = len(self.nodes)
+        meanX = sum([node.x for node in self.nodes]) / num_nodes
+        meanY = sum([node.y for node in self.nodes]) / num_nodes
+        meanZ = sum([node.z for node in self.nodes]) / num_nodes
+
+        return (meanX, meanY, meanZ)
 
     def transform(self, matrix):
         """ Apply a transformation defined by a given matrix. """
