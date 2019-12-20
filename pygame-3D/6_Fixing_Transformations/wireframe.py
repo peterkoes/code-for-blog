@@ -59,16 +59,6 @@ class Wireframe:
     def addEdges(self, edgeList):
         self.edges += edgeList
 
-    def findCentre(self):
-        """ Find the centre of the wireframe. """
-
-        num_nodes = len(self.nodes)
-        meanX = sum([node.x for node in self.nodes]) / num_nodes
-        meanY = sum([node.y for node in self.nodes]) / num_nodes
-        meanZ = sum([node.z for node in self.nodes]) / num_nodes
-
-        return (meanX, meanY, meanZ)
-
     def transform(self, matrix):
         """ Apply a transformation defined by a given matrix. """
         self.nodes = np.dot(self.nodes, matrix)
@@ -85,9 +75,9 @@ class Wireframe:
 
     def findCentre(self):
         num_nodes = len(self.nodes)
-        meanX = sum([node.x for node in self.nodes]) / num_nodes
-        meanY = sum([node.y for node in self.nodes]) / num_nodes
-        meanZ = sum([node.z for node in self.nodes]) / num_nodes
+        meanX = sum([node[0] for node in self.nodes]) / num_nodes
+        meanY = sum([node[1] for node in self.nodes]) / num_nodes
+        meanZ = sum([node[2] for node in self.nodes]) / num_nodes
         
         return (meanX, meanY, meanZ)
 

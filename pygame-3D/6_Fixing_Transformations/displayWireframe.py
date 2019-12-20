@@ -59,6 +59,7 @@ class ProjectionViewer:
         self.screen.fill(self.background)
 
         for wireframe in self.wireframes.values():
+
             if self.displayEdges:
                 for n1, n2 in wireframe.edges:
                     pygame.draw.aaline(self.screen, self.edgeColour, wireframe.nodes[n1][:2], wireframe.nodes[n2][:2], 1)
@@ -66,6 +67,7 @@ class ProjectionViewer:
             if self.displayNodes:
                 for node in wireframe.nodes:
                     pygame.draw.circle(self.screen, self.nodeColour, (int(node[0]), int(node[1])), self.nodeRadius, 0)
+
 
     def translateAll(self, vector):
         """ Translate all wireframes along a given axis by d units. """
@@ -79,6 +81,7 @@ class ProjectionViewer:
         """ Scale all wireframes by a given scale. """
 
         matrix = wf.scaleMatrix(scale, scale, scale)
+
         for wireframe in self.wireframes.itervalues():
             wireframe.transform(matrix)
 
@@ -88,6 +91,7 @@ class ProjectionViewer:
         rotateMatrix = 'rotate' + axis + 'Matrix'
 
         matrix = getattr(wf, rotateMatrix)(theta)
+        
         for wireframe in self.wireframes.itervalues():
             wireframe.transform(matrix)
 
