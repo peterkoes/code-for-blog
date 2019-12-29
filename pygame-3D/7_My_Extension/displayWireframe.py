@@ -86,21 +86,21 @@ class ProjectionViewer:
     def scaleAll(self, scale):
         """ Scale all wireframes by a given scale. """
 
-        matrix = wf.scaleMatrix(scale, scale, scale)
         for wireframe in self.wireframes.itervalues():
+            matrix = wf.scaleMatrix(scale, scale, scale, wireframe.findCentre())
             wireframe.transform(matrix)
 
     def rotateAll(self, axis, theta):
         """ Rotate all wireframe about their centre, along a given axis by a given angle. """
 
-        rotateMatrix = 'rotate' + axis + 'MatrixCentre'
+        rotateMatrix = 'rotate' + axis + 'Matrix'
 
         for wireframe in self.wireframes.itervalues():
             matrix = getattr(wf, rotateMatrix)(theta, wireframe.findCentre())
             wireframe.transform(matrix)
 
 if __name__ == '__main__':
-    pv = ProjectionViewer(400, 300)
+    pv = ProjectionViewer(800, 600)
 
     cube = wf.Wireframe()
     cube_nodes = [(x,y,z) for x in (50,250) for y in (50,250) for z in (50,250)]

@@ -8,75 +8,51 @@ def translationMatrix(dx=0, dy=0, dz=0):
                      [0,0,1,0],
                      [dx,dy,dz,1]])
 
-def scaleMatrix(sx=0, sy=0, sz=0):
+def scaleMatrix(sx=0, sy=0, sz=0, (cx, cy, cz) = (0, 0, 0)):
     """ Return matrix for scaling equally along all axes centred on the point (cx,cy,cz). """
     
-    return np.array([[sx, 0,  0,  0],
-                     [0,  sy, 0,  0],
-                     [0,  0,  sz, 0],
-                     [0,  0,  0,  1]])
+    dx = (1 - sx) * cx
+    dy = (1 - sy) * cy
+    dz = (1 - sz) * cz
+    return np.array([[sx,  0,  0, 0],
+                     [ 0, sy,  0, 0],
+                     [ 0,  0, sz, 0],
+                     [dx, dy, dz, 1]])
 
-def rotateXMatrix(radians):
-    """ Return matrix for rotating about the x-axis by 'radians' radians """
-    
-    c = np.cos(radians)
-    s = np.sin(radians)
-    return np.array([[1, 0, 0, 0],
-                     [0, c,-s, 0],
-                     [0, s, c, 0],
-                     [0, 0, 0, 1]])
-
-def rotateYMatrix(radians):
-    """ Return matrix for rotating about the y-axis by 'radians' radians """
-
-    c = np.cos(radians)
-    s = np.sin(radians)
-    return np.array([[ c, 0, s, 0],
-                     [ 0, 1, 0, 0],
-                     [-s, 0, c, 0],
-                     [ 0, 0, 0, 1]])
-
-def rotateZMatrix(radians):
-    """ Return matrix for rotating about the z-axis by 'radians' radians """
-
-    c = np.cos(radians)
-    s = np.sin(radians)
-    return np.array([[c,-s, 0, 0],
-                     [s, c, 0, 0],
-                     [0, 0, 1, 0],
-                     [0, 0, 0, 1]])
-
-def rotateXMatrixCentre(radians, (cx, cy, cz)):
-    """ Return matrix for rotating about the x-axis by 'radians' radians """
+def rotateXMatrix(radians=0, (cx, cy, cz) = (0, 0, 0)):
+    """ Return matrix for rotating about the x-axis through  the given centre point by 'radians' radians """
 
     c = np.cos(radians)
     s = np.sin(radians)
     dy = -s*cz+(1-c)*cy
-    dz = s*cy+(1-c)*cz
+    dz =  s*cy+(1-c)*cz
+
     return np.array([[1,  0,  0, 0],
                      [0,  c, -s, 0],
                      [0,  s,  c, 0],
                      [0, dy, dz, 1]])
 
-def rotateYMatrixCentre(radians, (cx, cy, cz)):
-    """ Return matrix for rotating about the x-axis by 'radians' radians """
+def rotateYMatrix(radians=0, (cx, cy, cz) = (0, 0, 0)):
+    """ Return matrix for rotating about the y-axis through  the given centre point by 'radians' radians """
 
     c = np.cos(radians)
     s = np.sin(radians)
     dx = -s*cz+(1-c)*cx
-    dz = s*cx+(1-c)*cz
+    dz =  s*cx+(1-c)*cz
+
     return np.array([[ c, 0, -s, 0],
                      [ 0, 1,  0, 0],
                      [ s, 0,  c, 0],
                      [dx, 0, dz, 1]])
 
-def rotateZMatrixCentre(radians, (cx, cy, cz)):
-    """ Return matrix for rotating about the x-axis by 'radians' radians """
+def rotateZMatrix(radians=0, (cx, cy, cz) = (0, 0, 0)):
+    """ Return matrix for rotating about the z-axis through  the given centre point by 'radians' radians """
 
     c = np.cos(radians)
     s = np.sin(radians)
     dx = -s*cy+(1-c)*cx
-    dy = s*cx+(1-c)*cy
+    dy =  s*cx+(1-c)*cy
+
     return np.array([[ c, -s, 0, 0],
                      [ s,  c, 0, 0],
                      [ 0,  0, 1, 0],
